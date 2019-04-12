@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="/imgs/favicon.png" />
+    <title>techedge Colombia | Login</title>
+    <script src="/jquery/dist/jquery.min.js" ></script>
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2|Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/style-login.css" />
+    <script src="/sweetalert2/dist/sweetalert2.min.js" ></script>
+    <link rel="stylesheet" href="/sweetalert2/dist/sweetalert2.min.css" />
+    <script src="/Bootstrap/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    
+</head>
+<body >
+    <div id="body-login">
+        <div class="conten-login">
+            <div class="box-login">
+                <form class="form-signin">
+                    <img src="/imgs/techedge-identify.jpg" alt="Techedge Colombia">
+                    <div class="form-group">
+                        <label for="User">Usuario</label>
+                        <input type="text" class="form-control" id="User" placeholder="Usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="Pass">Contraseña</label>
+                        <input type="password" class="form-control" id="Pass" placeholder="Contraseña">
+                    </div>
+                    <button type="button" onclick="Auth()" class="btn btn-primary btn-block">Acceder</button> 
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/Scripts/ClientAPI.js"></script>
+    <script>
+        function Auth(){
+            var User = $('#User').val();
+            var Pass = $('#Pass').val();
+            UserAction(User, Pass);
+        }
+    </script>
+</body>
+</html>

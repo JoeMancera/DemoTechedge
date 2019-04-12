@@ -1,0 +1,68 @@
+body{
+    font-family: 'Exo 2', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    margin: 2em;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+  }
+  .file-input-label {
+      padding: 0px 10px;
+      display: table-cell;
+      vertical-align: middle;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .icon-menu{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(66, 190, 178, .8);
+    color: #034180;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    position: block;
+    z-index: 2;
+    left: 25px;
+    top: 25px;
+  }
+  .icon-menu:hover{
+    background-color: rgba(3, 65, 128, 0.8);
+    color: rgb(66, 190, 178);;
+  }
+  input[readonly] {
+    background-color: white !important;
+    cursor: text !important;
+  }
+  .swal2-popup{
+    font-size: 1.5rem !important;
+}
+  
+@media screen and (max-width: 1024px) { }
+@media screen and (max-width: 768px) {
+  .icon-menu{
+    position: fixed;
+    left: 25px;
+    top: 10px;
+  }
+ }
+@media screen and (max-width: 480px) { }
+@media screen and (max-width: 320px) { }
