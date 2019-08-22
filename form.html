@@ -7,13 +7,13 @@
     <link rel="icon" type="image/png" href="/imgs/favicon.png" />
     <title>techedge Colombia | Historia laboral</title>
     <script src="/jquery/dist/jquery.min.js" ></script>
-    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="/Bootstrap/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Exo+2|Ubuntu" rel="stylesheet">
     <link rel="stylesheet" href="/datepiker/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="/CSS/style.css" />
     <script src="/sweetalert2/dist/sweetalert2.min.js" ></script>
     <link rel="stylesheet" href="/sweetalert2/dist/sweetalert2.min.css" />
-    <script src="/Bootstrap/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css" />
     <script src="/datepiker/js/bootstrap-datepicker.min.js"></script>
     <script src="/Scripts/ClientAPI.js"></script>
     <script src="/Scripts/site.js"></script>
@@ -27,7 +27,7 @@
         <h2>techedge Colombia</h2>
         <p class="lead">Historia laboral</p>
     </div>
-    
+
     <div class="row">
         <div id="succsessSearch" class="col-md-12 alert alert-success" style="display: none;" role="alert"></div>
         <div id="errorSearch" class="col-md-12 alert alert-danger"style="display: none;" role="alert"></div>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <hr class="mb-4">
-                
+
                 <div class="row dataForm" style="display: none;">
                     <div class="col-md-5 mb-3">
                         <label for="area">Area</label>
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <hr class="mb-4 dataForm" style="display: none;">
-                
+
                 <div class="row dataForm" style="display: none;">
                     <div class="col-lg-12 col-sm-12 col-12">
                         <label for="cc-expiration">Archivo</label>
@@ -106,27 +106,45 @@
             </form>
         </div>
     </div>
-    
+
     <script>
         $(document).ready(function() {
             GetInfoSelects('155236', 1);
             GetInfoSelects('156114', 2);
             GetInfoSelects('155791', 3);
         });
-        
+
         function SearchPerson(){
             var tipoDoc = $('#tipoDocuemnto').val();
             var cedula = $('#numeroIdentificacion').val();
-            GetInfoPerson(tipoDoc, cedula);
+
+            //Limpiar los selects
+            $("#area").val("Selecciona un Area");
+            $("#tipoTaxo").val("Selecciona un Tipo");
+            $("#fechaDocumento").val("")
+
+            //Limpiar el localStorage
+            localStorage.clear();
+
+            //Validar si los inputs vienen vacíos
+            if(tipoDoc != "" && cedula != ""){
+              GetInfoPerson(tipoDoc, cedula);
+            }else{
+              swal({
+                  type: 'warning',
+                  title: 'Espera...',
+                  text: "Faltan datos obligatorios: Selecciona un tipo de Documento Válido e introduce un número de identificación válido"
+              });
+            }
         }
-        
+
         $('.datepicker').datepicker({
             todayBtn: "linked",
             format: "yyyy-mm-dd",
             todayHighlight: true,
             language: "es"
         });
-        
+
         function load(){
             $('#buttonSave').button('loading');
             console.log("Load");
@@ -186,7 +204,7 @@
                 }
             });
         });
-        
+
     </script>
 </body>
 </html>

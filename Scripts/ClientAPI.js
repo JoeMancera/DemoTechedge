@@ -28,7 +28,7 @@ function GetInfoSelects(node, select) {
     var tokenJson = sessionStorage.getItem("Key");
     var jsonToken = JSON.parse(tokenJson);
     var url= urlpath + 'v1/nodes/' + node + '/output';
-    
+
     switch(select) {
         case 1:
         $.ajax({
@@ -45,7 +45,7 @@ function GetInfoSelects(node, select) {
                     $("#tipoDocuemnto").append( "<option value='" + val + "'>" + val + "</option>" );
                 });
             },
-            error: function() { 
+            error: function() {
                 swal({
                     type: 'error',
                     title: 'Opps...',
@@ -53,8 +53,8 @@ function GetInfoSelects(node, select) {
                 });
             },
             beforeSend: setHeader
-        });           
-        
+        });
+
         break;
         case 2:
         $.ajax({
@@ -71,7 +71,7 @@ function GetInfoSelects(node, select) {
                     $("#area").append( "<option value='" + val + "'>" + val + "</option>" );
                 });
             },
-            error: function() { 
+            error: function() {
                 swal({
                     type: 'error',
                     title: 'Opps...',
@@ -109,7 +109,7 @@ function GetInfoSelects(node, select) {
         default:
         console.log("nodo no contemplado");
     }
-    
+
     function setHeader(xhr) {
         xhr.setRequestHeader('OTCSTICKET', jsonToken.ticket);
     }
@@ -150,7 +150,7 @@ function GetInfoPerson(tipoDoc, cedula){
             }
             localStorage.setItem("DataID", dataJson.DataID);
         },
-        error: function() { 
+        error: function() {
             swal({
                 type: 'error',
                 title: 'Opps...',
@@ -159,7 +159,7 @@ function GetInfoPerson(tipoDoc, cedula){
         },
         beforeSend: setHeader
     });
-    
+
     function setHeader(xhr) {
         xhr.setRequestHeader('OTCSTICKET', jsonToken.ticket);
     }
@@ -170,7 +170,7 @@ function GetPathId(){
     var dataIdArea = localStorage.getItem("DataID");
     var tokenJson = sessionStorage.getItem("Key");
     var jsonToken = JSON.parse(tokenJson);
-    
+
     url = urlpath + "v1/nodes/155905/output?inputlabel1=" + tipoDocumento + "&inputlabel2=" + dataIdArea;
     if(tipoDocumento != "Selecciona un Tipo" ){
         $.ajax({
@@ -186,7 +186,7 @@ function GetPathId(){
                 console.log(dataPath);
                 localStorage.setItem("DataIDPath", dataPath.DataID);
             },
-            error: function() { 
+            error: function() {
                 swal({
                     type: 'error',
                     title: 'Opps...',
@@ -195,32 +195,34 @@ function GetPathId(){
             },
             beforeSend: setHeader
         });
-        
+
         function setHeader(xhr) {
             xhr.setRequestHeader('OTCSTICKET', jsonToken.ticket);
         }
     }
-    
+
 }
 
 function UploadFile(){
     url = urlpath + "v2/nodes";
     var tipoDocumento = $('#tipoTaxo').val();
-    var pathID = localStorage.getItem("DataIDPath");
+    var pathID = 884686;
     var tokenJson = sessionStorage.getItem("Key");
     var jsonToken = JSON.parse(tokenJson);
     var datos = new FormData();
+
     var jdata = [];
-    
+
     $.each($(":file"), function (iif, oif) {
         $.each($(oif)[0].files, function (siif, soif) {
             datos.append("file", soif);
         });
     });
+
     datos.append("type", 144);
     datos.append("parent_id", pathID);
     datos.append("name", tipoDocumento);
-    
+
     console.log("datos", datos);
     $.ajax({
         url: url,
@@ -232,7 +234,7 @@ function UploadFile(){
         type: 'POST', // For jQuery < 1.9
         statusCode: {
             401:function() { logOut(); },
-            500:function() { 
+            500:function() {
                 swal({
                     type: 'error',
                     title: 'Opps...',
@@ -250,9 +252,10 @@ function UploadFile(){
             console.log(msg);
             var fileID = msg.results.data.properties.id;
             $("#buttonSave").button('reset');
-            AddCategory(fileID);
+              AddCategory(fileID);
+              //MoveDocument(fileID)
         },
-        error: function() { 
+        error: function() {
             swal({
                 type: 'error',
                 title: 'Opps...',
@@ -261,7 +264,7 @@ function UploadFile(){
         },
         beforeSend: setHeader
     });
-    
+
     function setHeader(xhr) {
         xhr.setRequestHeader('OTCSTICKET', jsonToken.ticket);
     }
@@ -274,11 +277,11 @@ function AddCategory(DataDI){
     var jsonToken = JSON.parse(tokenJson);
     var category = {
         category_id: 101750,
-        '101750_6': $('#area').val(), //Area
+        '101750_9': $('#area').val(), //Area
         '101750_7': $('#tipoTaxo').val(), //Tipo documental
         '101750_4': $('#fechaDocumento').val()  //Fecha
     };
-    
+
     $.ajax({
         url: url,
         type: 'POST',
@@ -290,7 +293,7 @@ function AddCategory(DataDI){
         success: function(msg) {
             console.log(msg);
         },
-        error: function() { 
+        error: function() {
             swal({
                 type: 'error',
                 title: 'Opps...',
@@ -299,7 +302,7 @@ function AddCategory(DataDI){
         },
         beforeSend: setHeader
     });
-    
+
     function setHeader(xhr) {
         xhr.setRequestHeader('OTCSTICKET', jsonToken.ticket);
     }

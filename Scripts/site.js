@@ -10,7 +10,7 @@ $(document).ready( function() {
     $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
         var input_label = $(this).closest('.input-group').find('.file-input-label'),
         log = numFiles > 1 ? numFiles + ' files selected' : label;
-        
+
         if( input_label.length ) {
             input_label.text(log);
             $('#buttonSave').show();
@@ -22,5 +22,6 @@ $(document).ready( function() {
 
 function logOut(){
     sessionStorage.clear();
+    localStorage.clear();
     window.location.replace("./index.html");
 }
