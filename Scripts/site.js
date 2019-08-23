@@ -3,7 +3,6 @@ $(document).on('change', '.btn-file :file', function() {
     numFiles = input.get(0).files ? input.get(0).files.length : 1,
     label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
     input.trigger('fileselect', [numFiles, label]);
-    console.log(input.val());
 });
 
 $(document).ready( function() {

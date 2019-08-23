@@ -106,8 +106,7 @@ function GetInfoSelects(node, select) {
             beforeSend: setHeader
         });
         break;
-        default:
-        console.log("nodo no contemplado");
+        default: console.log("nodo no contemplado");
     }
 
     function setHeader(xhr) {
@@ -183,7 +182,6 @@ function GetPathId(){
             success: function(msg) {
                 var data = msg.data.trim();
                 var dataPath = JSON.parse(data);
-                console.log(dataPath);
                 localStorage.setItem("DataIDPath", dataPath.DataID);
             },
             error: function() {
@@ -223,7 +221,6 @@ function UploadFile(){
     datos.append("parent_id", pathID);
     datos.append("name", tipoDocumento);
 
-    console.log("datos", datos);
     $.ajax({
         url: url,
         data: datos,
@@ -249,7 +246,7 @@ function UploadFile(){
                 title: 'Perfecto...',
                 text: "Documento agregado..."
             });
-            console.log(msg);
+
             var fileID = msg.results.data.properties.id;
             $("#buttonSave").button('reset');
               AddCategory(fileID);
@@ -275,7 +272,7 @@ function AddCategory(DataDI){
     var tokenJson = sessionStorage.getItem("Key");
     var jsonToken = JSON.parse(tokenJson);
     var category = {
-        category_id: 101750,
+        'category_id': 101750,
         '101750_9': $('#area').val(), //Area
         '101750_7': $('#tipoTaxo').val(), //Tipo documental
         '101750_4': $('#fechaDocumento').val()  //Fecha
@@ -309,12 +306,12 @@ function AddCategory(DataDI){
 
 function MoveNode(DataDI){
     url = urlpath + "v2/nodes/" + DataDI;
-    var pathID = localStorage.getItem("DataIDPath");
+    var pathID = parseInt(localStorage.getItem("DataIDPath"),10);
     var tokenJson = sessionStorage.getItem("Key");
     var jsonToken = JSON.parse(tokenJson);
 
     var datain = {
-      parent_id : pathID
+      "parent_id" : pathID
     }
 
     $.ajax({
