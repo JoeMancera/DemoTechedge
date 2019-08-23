@@ -253,7 +253,7 @@ function UploadFile(){
             var fileID = msg.results.data.properties.id;
             $("#buttonSave").button('reset');
               AddCategory(fileID);
-              //MoveDocument(fileID)
+              MoveNode(fileID)
         },
         error: function() {
             swal({
@@ -272,7 +272,6 @@ function UploadFile(){
 
 function AddCategory(DataDI){
     url = urlpath + "v2/nodes/" + DataDI + "/categories";
-    var pathID = localStorage.getItem("DataIDPath");
     var tokenJson = sessionStorage.getItem("Key");
     var jsonToken = JSON.parse(tokenJson);
     var category = {
@@ -298,6 +297,42 @@ function AddCategory(DataDI){
                 type: 'error',
                 title: 'Opps...',
                 text: "Error del servidor (AddCategory), intenta más tarde..."
+            });
+        },
+        beforeSend: setHeader
+    });
+
+    function setHeader(xhr) {
+        xhr.setRequestHeader('OTCSTICKET', jsonToken.ticket);
+    }
+}
+
+function MoveNode(DataDI){
+    url = urlpath + "v2/nodes/" + DataDI;
+    var pathID = localStorage.getItem("DataIDPath");
+    var tokenJson = sessionStorage.getItem("Key");
+    var jsonToken = JSON.parse(tokenJson);
+
+    var datain = {
+      parent_id : pathID
+    }
+
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        dataType: 'json',
+        data: datain,
+        statusCode: {
+            401:function() { logOut(); }
+        },
+        success: function(msg) {
+            console.log(msg);
+        },
+        error: function() {
+            swal({
+                type: 'error',
+                title: 'Opps...',
+                text: "Error del servidor (MoveNode), intenta más tarde..."
             });
         },
         beforeSend: setHeader
